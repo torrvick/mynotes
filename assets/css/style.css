@@ -1,0 +1,234 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #f1f1f1;
+}
+
+.wrapper {
+    max-width: 1024px;
+    margin: 20px auto;
+    padding: 0 10px;
+
+}
+
+.note-form {
+    margin-bottom: 20px;
+}
+
+ol,
+ul {
+    /* padding-left: 1rem; */
+    padding-left: 20px;
+}
+
+/* ul > input {
+    display: none;
+  } */
+
+ul:has(input) {
+    padding-left: 0px;
+    list-style-type: none;
+}
+
+.danger {
+    color: red;
+}
+
+.input-area {
+    display: flex;
+    /* flex-direction: column; */
+    /* align-items: flex-end; */
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    background-color: #fff;
+    border: 1px solid rgb(202, 202, 202);
+    border-radius: 7px;
+    padding: 20px;
+}
+
+.content-input {
+    width: 100%;
+    /* max-height: 200px; */
+    resize: none;
+    /* overflow: hidden; */
+    background-color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    font-family: inherit;
+    margin-bottom: 20px;
+}
+
+.add-note-button {
+    border: 0px;
+    border-radius: 5px;
+    background-color: rgb(100, 194, 76);
+    color: #fff;
+    padding: 0.5rem 1rem;
+    font-family: inherit;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.add-note-button:disabled {
+    /* Стили для неактивной кнопки */
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* [data-action="add"] .add-note-button::before {
+    content: "Добавить";
+}
+
+[data-action="edit"] .add-note-button::before {
+    content: "Сохранить";
+} */
+.notes-list.masonry {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.masonry .masonry-flex {
+    display: flex;
+    flex-wrap: wrap;
+    flex: 1;
+    width: 50%;
+    /* max-width: 49%; */
+
+}
+
+.note {
+    background-color: #fff;
+    border: 1px solid rgb(202, 202, 202);
+    border-radius: 7px;
+    padding: 20px;
+    margin-bottom: 10px;
+    position: relative;
+    width: 100%;
+    min-height: 200px;
+}
+
+.note:hover {
+    box-shadow: 0px 0px 8px 1px #afafafde;
+}
+
+.note-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.note-title {
+    flex-basis: 90%;
+}
+
+.note-menu {
+    /* display: none; */
+    display: flex;
+    flex-direction: column;
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    z-index: 5;
+    top: 20px;
+    right: 47px;
+    background: white;
+    box-shadow: 0px 0px 8px 1px #afafafde;
+    border-radius: 5px;
+    padding: 4px;
+    transition: all 0.3s ;
+}
+
+.note-menu-open {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.note-menu-button {
+    border: 0px;
+    background-color: inherit;
+    cursor: pointer;
+    /* transition: transform 0.2s ease-in-out; */
+}
+
+/* .note-menu-button:hover {
+    transform: rotate(360deg);
+} */
+
+.note-menu-icon {
+    opacity: 0%;
+    transition: opacity 0.2s ease;
+}
+
+.note:hover .note-menu-icon,
+.note-menu-icon.clicked {
+    opacity: 50%;
+    transition: opacity 0.3s ease;
+}
+
+/* .note:not(:has(.note-menu-open)) {
+    filter: blur(4px);
+} */
+
+.blur {
+    filter: blur(4px);
+}
+
+.note-menu-open i {
+    margin-right: 0.5rem;
+    width: 1rem;
+}
+
+.note-inmenu-icon {
+    margin-right: 0.8rem;
+    width: 1rem;
+}
+
+
+.note-inmenu-button {
+    display: flex;
+    align-items: center;
+    border: 0px;
+    border-radius: 5px;
+    background-color: inherit;
+    cursor: pointer;
+    padding: 10px 10px;
+    width: 100%;
+    text-align: left;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.8rem;
+    transition: background-color 0.7s ease;
+
+}
+
+.note-inmenu-button:hover {
+    background-color: rgb(218, 217, 217);
+    transition: background-color 0.2s ease;
+}
+
+.note-content code {
+    border-radius: 5px;
+    word-break: keep-all;
+    white-space: pre-wrap;
+}
+
+
+@media (max-width: 767px) {
+    /* body {
+        font-size: 0.9rem;
+    } */
+
+    /* code {
+        font-size: 0.9rem;
+    } */
+}

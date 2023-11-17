@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Заметки</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/assets/img/favicon.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Roboto:wght@100;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.2/css/all.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <!-- <link rel="stylesheet" href="prismf.css"> -->
+    <!-- <link rel="stylesheet" href="prism-coldark-cold.css"> -->
+    <link rel="stylesheet" href="assets/css/hljs/highlight.js_11.9.0_default.min.css">
+    <link rel="stylesheet" href="assets/css/hljs/atom-one-dark.css">
+
+
+</head>
+
+<body>
+    <div class="wrapper">
+        <form class="note-form" data-action="add">
+            <div class="input-area">
+                <textarea class="content-input" placeholder="Надо не забыть, что..." required></textarea>
+                <button class="add-note-button" type="submit" disabled>Сохранить</button>
+            </div>
+        </form>
+        
+        <div class="notes-list masonry"></div>
+    </div>
+    <!-- <script src="prismf.js"></script> -->
+    <script src="assets/scripts/marked.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/12.2.0/markdown-it.min.js"></script> -->
+    <script src="/assets/scripts/highlight.min.js"></script>
+    <!-- <script src="assets/scripts/script.js" type="module"></script> -->
+    <script src="assets/scripts/test/app.js" type="module"></script>
+
+
+</body>
+
+</html>
