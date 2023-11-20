@@ -32,7 +32,7 @@ export function renderNotes(notes) {
         targetElem.appendChild(rightColumn);
 
         notes.forEach((note, i) => {
-            i % 2 == 0 ? renderNote(note, leftColumn) : renderNote(note, rightColumn);
+            i % 2 == 0 ? renderNote(note, leftColumn) : renderNote(note, rightColumn); 
         });
 
         const hightestColumn =
@@ -45,8 +45,10 @@ export function renderNotes(notes) {
                 ? rightColumn
                 : leftColumn;
 
-
-        if (hightestColumn.offsetHeight - hightestColumn.lastChild.offsetHeight > lowestColumn.offsetHeight) {
+        // if (hightestColumn.offsetHeight - hightestColumn.lastChild.offsetHeight > lowestColumn.offsetHeight) {
+        //     lowestColumn.appendChild(hightestColumn.lastChild);
+        // }
+        while (hightestColumn.offsetHeight - hightestColumn.lastChild.offsetHeight > lowestColumn.offsetHeight) {
             lowestColumn.appendChild(hightestColumn.lastChild);
         }
 
@@ -63,7 +65,11 @@ function renderNote(note, targetElem) {
     let noteContent = note.content;
     noteBlock.dataset.noteId = note.id;
     if (noteContent.startsWith('# ')) {
-        noteTitle = noteContent.substring(noteContent.indexOf('#') + 1, noteContent.indexOf('\n')).trim();
+        // noteTitle = noteContent.substring(noteContent.indexOf('#') + 1, noteContent.indexOf('\n')).trim();
+        noteTitle = noteContent.substring(
+                    noteContent.indexOf('#') + 1, 
+                    noteContent.indexOf('\n') < 0 ? noteContent.lenght : noteContent.indexOf('\n')
+                    ).trim();
         noteContent = noteContent.substring(noteContent.indexOf('\n') + 1);
     } else {
         noteTitle = `Заметка #${note.id}`;

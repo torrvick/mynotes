@@ -9,15 +9,55 @@ let allNotes = [];
 
 document.addEventListener('click', e => {
     const target = e.target;
-    const action = target.dataset.action;
+    // const action = target.dataset.action;
+    const actionButton = e.target.closest('[data-action]');
 
-    if (action === 'note-menu') {
-        const currentNote = target.closest('.note');
-        const currentMenu = currentNote.querySelector('.note-menu');
-        const currentMenubutton = target;
-        toggleMenu(currentMenu);
-        toggleMenuButton(currentMenubutton);
+    if (actionButton) {
+        const action = actionButton.dataset.action;
+
+        if (action === 'note-menu') {
+            const currentNote = target.closest('.note');
+            const currentMenu = currentNote.querySelector('.note-menu');
+            const currentMenubutton = target;
+            toggleMenu(currentMenu);
+            toggleMenuButton(currentMenubutton);
+        }
+
+        if (target.closest('.note-inmenu-button')) {
+            const currentNote = target.closest('.note');
+            const currentNoteId = currentNote.dataset.noteId;
+            const currentMenu = currentNote.querySelector('.note-menu');
+            const clickedMenuButton = findClickedMenuButtons();
+    
+            if (action === 'note-delete') {
+                api.deleteNote(currentNoteId)
+                    .then(() => {
+                        return updateNotes();
+                    }).catch(error => {
+                        console.error(error);
+                    });
+            }
+    
+            if (action === 'note-edit') {
+                api.getOneNote(currentNoteId)
+                    .then(note => {
+                        contentInput.value = note.content;
+                        contentInput.focus();
+                        adjustTextareaHeight(contentInput);
+                        toggleAddButton();
+                        noteForm.dataset.action = "edit";
+                        noteForm.dataset.noteId = currentNoteId;
+                        // console.log(currentNoteId);
+                        // console.log(allNotes.find(note => note.id == currentNoteId));
+                    });
+            }
+    
+            toggleMenu(currentMenu);
+            toggleMenuButton(clickedMenuButton);
+        }
+
     }
+
 
     if (!target.closest('.note-menu') && !target.closest('.note-menu-button')) {
         const openedMenu = findOpenedMenues();
@@ -30,39 +70,7 @@ document.addEventListener('click', e => {
         }
     }
 
-    if (target.closest('.note-inmenu-button')) {
-        const currentNote = target.closest('.note');
-        const currentnoteId = currentNote.dataset.noteId;
-        const currentMenu = currentNote.querySelector('.note-menu');
-        const clickedMenuButton = findClickedMenuButtons();
-        console.log(clickedMenuButton);
-
-        if (action === 'note-delete') {
-            api.deleteNote(currentnoteId)
-                .then(() => {
-                    return updateNotes();
-                }).catch(error => {
-                    console.error(error);
-                });
-        }
-
-        if (action === 'note-edit') {
-            api.getOneNote(currentnoteId)
-                .then(note => {
-                    contentInput.value = note.content;
-                    contentInput.focus();
-                    adjustTextareaHeight(contentInput);
-                    toggleAddButton();
-                    noteForm.dataset.action = "edit";
-                    noteForm.dataset.noteId = currentnoteId;
-                    // console.log(currentnoteId);
-                    // console.log(allNotes.find(note => note.id == currentnoteId));
-                });
-        }
-
-        toggleMenu(currentMenu);
-        toggleMenuButton(clickedMenuButton);
-    }
+    
 
     if (target.matches('input[type="checkbox"]')) {
         // console.log('sdfsdfsd');
@@ -75,7 +83,7 @@ document.addEventListener('click', e => {
             .then(note => {
                 let unMarked = note.content;
                 const checkIndex = unMarked.indexOf(currentCheckLabel) - 2;
-                String.prototype.replaceAt = function(index, replacement) {
+                String.prototype.replaceAt = function (index, replacement) {
                     return this.substring(0, index) + replacement + this.substring(index + replacement.length);
                 }
                 if (isChecked) {
@@ -88,7 +96,7 @@ document.addEventListener('click', e => {
             .then(unMarked => {
                 api.editNote(currentNoteId, unMarked);
             })
-            // .then(updateNotes());
+        // .then(updateNotes());
     }
 
 
@@ -169,7 +177,7 @@ function findClickedMenuButtons() {
     return document.querySelector('.note-menu-icon.clicked');
 }
 
-function toggleMenuButton(button){
+function toggleMenuButton(button) {
     const clickedMenuButtons = findClickedMenuButtons();
     if (clickedMenuButtons && clickedMenuButtons != button) {
         clickedMenuButtons.classList.remove('clicked');
